@@ -22,33 +22,39 @@
     <h1>Selamat Datang di Undangan Kami</h1>
     <p>Kepada Yth. Bapak/Ibu/Saudara/i:</p>
     
-    <!-- Bagian Nama Tamu yang Akan Berubah Otomatis -->
-    <h2 id="nama-tamu" style="color: #bd9a5f; margin: 20px 0;">Nama Tamu</h2>
-    
-    <button class="btn-buka" onclick="pindahHalaman()">Buka Undangan</button>
-</div>
+<div class="cover-screen">
+        <h1>Selamat Datang di Undangan Kami</h1>
+        <p>Kepada Yth. Bapak/Ibu/Saudara/i:</p>
+        
+        <!-- TEMPAT NAMA TAMU DI HALAMAN PERTAMA -->
+        <h2 id="nama-tamu" style="color: #bd9a5f;">Nama Tamu</h2>
+        
+        <!-- Tombol langsung memicu fungsi pindahHalaman() -->
+        <button class="btn-buka" onclick="pindahHalaman()">Buka Undangan</button>
+    </div>
 
+    <script>
+        // 1. Fungsi Menangkap Nama dari URL (?to=Nama+Tamu)
+        function tampilkanNamaTamu() {
+            const urlParams = new URLSearchParams(window.location.search);
+            let nama = urlParams.get('to');
+            
+            if (nama) {
+                nama = decodeURIComponent(nama);
+                document.getElementById("nama-tamu").innerText = nama;
+            } else {
+                document.getElementById("nama-tamu").innerText = "Tamu Undangan";
+            }
+        }
 
-  <script>
+        // 2. Fungsi Pindah ke Halaman Kedua (Langsung tanpa mengoper nama lagi)
+        function pindahHalaman() {
+            window.location.href = "undangan.html";
+        }
 
-    function pindahHalaman() {
-    // 1. Ambil parameter URL yang ada di halaman saat ini
-    const urlParams = new URLSearchParams(window.location.search);
-    const namaTamu = urlParams.get('to');
-
-    // 2. Tentukan nama file HTML tujuan Anda (misal: undangan.html)
-    const halamanTujuan = "isi.html";
-
-    // 3. Jika ada nama tamunya, oper nama tersebut ke halaman berikutnya
-    if (namaTamu) {
-        window.location.href = halamanTujuan + "?to=" + encodeURIComponent(namaTamu);
-    } else {
-        // Jika dibuka tanpa nama, langsung pindah saja
-        window.location.href = halamanTujuan;
-    }
-}
-
-  </script>
+        // Jalankan pencarian nama saat halaman selesai dimuat
+        window.addEventListener("DOMContentLoaded", tampilkanNamaTamu);
+    </script>
 
 
   </body>
